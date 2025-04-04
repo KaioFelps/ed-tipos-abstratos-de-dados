@@ -1,0 +1,14 @@
+# TAD - Tipos Abstratos de Dados
+- Lista Sequencial
+    - Arrays dinâmicos, isto é, que se realocam sozinho assim que sua capacidade é esgotada.
+        - Implica que deve ser alocado na Heap.
+    - Permite acesso aleatório por meio de índices.
+    - Operações simples (adicionar, remover, alterar).
+    - Bom para inserção/remoção ao final da lista.
+    - Ruim para inserções/remoções no início ou meio da lista (piora ao tender ao início).
+        - Nesse caso, acontece o "bubble".
+- Lista Encadeada (linked list)
+- Lista Duplamente Encadeada
+- Lista Circular
+- Fila
+- Pilha
