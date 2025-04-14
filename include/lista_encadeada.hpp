@@ -13,8 +13,8 @@ class NóListaEncadeada
 {
     private:
         T element_;
-        T* previous_;
-        T* next_;
+        NóListaEncadeada<T>* previous_;
+        NóListaEncadeada<T>* next_;
 
     public:
         NóListaEncadeada(T element);
