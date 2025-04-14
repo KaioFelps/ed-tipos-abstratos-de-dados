@@ -24,49 +24,51 @@ template<typename T>
 requires std::equality_comparable<T>
 T& NóListaEncadeada<T>::element()
 {
-
+    return this->element_;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 bool NóListaEncadeada<T>::ishead()
 {
-
+    return this->previous_ == nullptr;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 bool NóListaEncadeada<T>::hasnext()
 {
-
+    return this->next_ != nullptr;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 void NóListaEncadeada<T>::setnext(NóListaEncadeada<T>* element)
 {
-
+    this->next_ = element;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 void NóListaEncadeada<T>::setprevious(NóListaEncadeada<T>* element)
 {
-
+    this->previous_ = element;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 T NóListaEncadeada<T>::takeelement()
 {
-
+    T element = std::move(this->element_);
+    this->element_ = T{};
+    return element;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 NóListaEncadeada<T>* NóListaEncadeada<T>::getnext()
 {
-
+    return this->next_;
 }
 
 
@@ -74,6 +76,7 @@ template<typename T>
 requires std::equality_comparable<T>
 NóListaEncadeada<T>* NóListaEncadeada<T>::getprevious()
 {
+    return this->previous_;
 }
 
 // ListaEncadeada ===========================================
@@ -89,6 +92,14 @@ requires std::equality_comparable<T>
 NóListaEncadeada<T>* ListaEncadeada<T>::_tail()
 {
 
+    NóListaEncadeada<T>* node = this->head_;
+
+    while (node->hasnext())
+    {
+        node = node->getnext();
+    }
+
+    return node;
 }
 
 template<typename T>
@@ -130,6 +141,7 @@ requires std::equality_comparable<T>
 T& ListaEncadeada<T>::pushback(T _element)
 {
     auto* element = new NóListaEncadeada(_element);
+
     if (this->isempty())
     {
         this->head_ = element;
@@ -255,7 +267,7 @@ template<typename T>
 requires std::equality_comparable<T>
 bool ListaEncadeada<T>::isempty() const
 {
-
+    return this->head_ == nullptr;
 }
 
 template class ListaEncadeada<int>;
