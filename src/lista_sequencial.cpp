@@ -1,4 +1,4 @@
-#include "include/lista_sequencial.hpp"
+#include "lista_sequencial.hpp"
 #include <iostream>
 #include <concepts>
 #include <exception>
