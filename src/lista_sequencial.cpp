@@ -11,6 +11,7 @@ ListaSequencial<T>::ListaSequencial(size_t _capacity)
 {
     this->list_ = std::make_unique<T[]>(_capacity);
     this->capacity_ = _capacity;
+    this->size_ = 0;
 }
 
 template<typename T>
@@ -18,6 +19,7 @@ ListaSequencial<T>::ListaSequencial()
 {
     this->list_ = std::make_unique<T[]>(DEFAULT_CAPACITY);
     this->capacity_ = DEFAULT_CAPACITY;
+    this->size_ = 0;
 }
 
 template<typename T>
