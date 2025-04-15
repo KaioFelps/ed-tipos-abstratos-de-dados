@@ -1,4 +1,5 @@
 #include "listas_utils.hpp"
+#include <concepts>
 #include <optional>
 
 namespace Listas
@@ -57,7 +58,7 @@ class ListaCircular
         /// que for maior que ele.
         /// @param element 
         /// @return Uma referência para o `element`.
-        T& addsorted(T element);
+        T& addsorted(T element) requires std::totally_ordered<T>;
 
         /// @brief Remove o primeiro elemento da lista.
         /// @return O elemento removido. Se a lista estiver vazia, `nullopt`.
@@ -69,6 +70,11 @@ class ListaCircular
         /// @param index 
         /// @return O elemento removido. `nullopt` se a posição for inválida.
         std::optional<T> remove(size_t index);
+
+        /// @brief Encontra a posição de `element` na lista (seu índice).
+        /// @param element 
+        /// @return O índice de `element` na lista. Se `element` não estiver na lista, retorna `-1`.
+        size_t find(T& element) requires std::equality_comparable<T>;
 
         /// @brief Verifica se a lista está vazia.
         /// @return `true` se e somente se não houver nenhum elemento na lista. `false` caso contrário.
