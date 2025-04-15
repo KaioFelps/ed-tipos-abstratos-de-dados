@@ -21,3 +21,22 @@
 - Lista Circular
 - Fila
 - Pilha
+
+## Rodando
+
+Para rodar, será necessário ter instalado [vcpkg]() e também ter disponível o comando `make`.
+Rode `vcpkg install` para baixar as dependências necessárias.
+
+### Buildando
+```shell
+$ make build
+```
+
+### Rodar os testes
+```shell
+$ make test
+```
+
+> [!NOTE]
+> Talvez seja necessário modificar os diretórios de "include" e "libs" no Makefile
+> para que seja possível encontrar os cabeçalhos das dependências e "linká-las" corretamente.
