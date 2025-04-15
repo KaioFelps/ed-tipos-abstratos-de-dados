@@ -7,40 +7,51 @@ namespace Listas
 template<typename T>
 T& NóListaCircular<T>::element()
 {
+    return this->element_;
 }
+
 template<typename T>
 T NóListaCircular<T>::takeelement()
 {
+    auto element = std::move(this->element_);
+    this->element_ = T{};
+    return element;
 }
 
 template<typename T>
 bool NóListaCircular<T>::hasnext() const
 {
+    return this->next_ != nullptr;
 }
 
 template<typename T>
 bool NóListaCircular<T>::hasprevious() const
 {
+    return this->previous_ != nullptr;
 }
 
 template<typename T>
 NóListaCircular<T>* NóListaCircular<T>::getnext()
 {
+    return this->next_;
 }
 
 template<typename T>
 NóListaCircular<T>* NóListaCircular<T>::getprevious()
 {
+    return this->previous_;
 }
 
 template<typename T>
 void NóListaCircular<T>::setprevious(NóListaCircular<T>* node)
 {
+    this->previous_ = node;
 }
 
 template<typename T>
 void NóListaCircular<T>::setnext(NóListaCircular<T>* node)
 {
+    this->next_ = node;
 }
 
 // ListaCircular
