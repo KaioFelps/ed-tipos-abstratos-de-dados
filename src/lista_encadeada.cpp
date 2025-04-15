@@ -1,5 +1,6 @@
 #include <cassert>
 #include "lista_encadeada.hpp"
+#include <iostream>
 
 namespace Listas
 {
@@ -161,12 +162,12 @@ template<typename T>
 requires std::equality_comparable<T>
 T& ListaEncadeada<T>::insert(T element, size_t offset)
 {
-    if (offset >= this->size())
+    if (offset < 0 || offset >= this->size())
     {
-        throw std::range_error("offset should be smaller than the size of the list.");
+        throw std::out_of_range("offset should be smaller than the size of the list.");
     }
 
-    int skipped = 0;
+    size_t skipped = 0;
     NóListaEncadeada<T>* node = this->head_;
 
     while (skipped < offset && node != nullptr)
@@ -198,28 +199,44 @@ size_t ListaEncadeada<T>::getpos(const T& element) const
         counter++;
     }
 
-    return -1;
+    return not_found_pos;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 T& ListaEncadeada<T>::tail()
 {
-
+    if (this->isempty()) throw std::out_of_range("tried to get tail from empty list.");
+    return this->_tail()->element();
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 T& ListaEncadeada<T>::head()
 {
-
+    if (this->isempty()) throw std::out_of_range("tried to get head from empty list.");
+    return this->head_->element();
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 T* ListaEncadeada<T>::get(size_t index)
 {
+    if (index < 0 || index >= this->size()) return nullptr;
+    if (index == 0) return &this->head_->element();
 
+    size_t position = 1;
+    NóListaEncadeada<T>* node = this->head_->getnext();
+    
+    while (node && position < index)
+    {
+        node = node->getnext();
+        position++;
+    }
+
+    assert(position == index && "since `index` is inside of list bounds, nodes should have next nodes until the index is reached.");
+
+    return &node->element();
 }
 
 template<typename T>
@@ -230,12 +247,13 @@ std::optional<T> ListaEncadeada<T>::popfront()
         return std::nullopt;
     }
 
-    auto* removed_el = this->head_;
-    this->head_ = removed_el->getnext();
+    auto* old_head = this->head_;
 
-    auto element = std::make_optional(removed_el->takeelement());
-    delete removed_el;
+    this->head_ = old_head->getnext();
+    this->head_->setprevious(nullptr);
 
+    auto element = old_head->takeelement();
+    delete old_head;
     return element;
 }
 
@@ -244,23 +262,63 @@ requires std::equality_comparable<T>
 std::optional<T> ListaEncadeada<T>::poplast()
 {
     if (this->isempty()) {
-        
+        return std::nullopt;    
     }
     
+    NóListaEncadeada<T>* tail = this->_tail();
+
+    tail->getprevious()->setnext(nullptr);
+
+    auto removed_element = tail->takeelement();
+
+    delete tail;
+    return removed_element;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
-std::optional<T> ListaEncadeada<T>::remove()
+std::optional<T> ListaEncadeada<T>::remove(size_t index)
 {
+    if (index < 0 || index >= this->size()) return std::nullopt;
 
+    size_t position = 0;
+    NóListaEncadeada<T>* node = this->head_;
+
+    while(node && position < index)
+    {
+        node = node->getnext();
+        position++;
+    }
+
+    assert(position == index && "since `index` is inside of list bounds, nodes should have next nodes until the index is reached.");
+
+    // o node anterior à este, que está sendo removido, deve ter seu próximo node
+    // como sendo o próximo node do node sendo removido, seja ele nulo ou um nó existente.
+    node->getprevious()->setnext(node->getnext());
+
+    // se houver um próximo node, este próximo node deve ter como seu node anterior o node anterior do nó que está sendo removido;
+    // sem isso, o node subsequente apontaria o nó sendo removido como sendo seu antecessor.
+    if (node->hasnext()) node->getnext()->setprevious(node->getprevious());
+
+    auto removed_element = node->takeelement();
+    delete node;
+
+    return removed_element;
 }
 
 template<typename T>
 requires std::equality_comparable<T>
 size_t ListaEncadeada<T>::size() const
 {
-    
+    auto count = 0;
+    auto* node = this->head_;
+    while (node)
+    {
+        node = node->getnext();
+        count++;
+    }
+
+    return count;
 }
 
 template<typename T>
@@ -268,6 +326,29 @@ requires std::equality_comparable<T>
 bool ListaEncadeada<T>::isempty() const
 {
     return this->head_ == nullptr;
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+void ListaEncadeada<T>::print() const
+{
+    if (this->isempty())
+    {
+        std::cout << "[]";
+        return;
+    }
+
+    std::cout << "[";
+    NóListaEncadeada<T>* node = this->head_;
+    while (node)
+    {
+        std::cout << node->element();
+        if (node->hasnext()) std::cout << ", ";
+
+        node = node->getnext();
+    }
+
+    std::cout << "]";
 }
 
 template class ListaEncadeada<int>;
