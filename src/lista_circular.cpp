@@ -88,11 +88,13 @@ size_t ListaCircular<T>::find(T& element) requires std::equality_comparable<T>
 template<typename T>
 bool ListaCircular<T>::isempty() const
 {
+    return !!this->head_;
 }
 
 template<typename T>
 size_t ListaCircular<T>::size() const
 {
+    return this->size_;
 }
 
 }
