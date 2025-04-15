@@ -96,11 +96,14 @@ template<typename T>
 T& ListaSequencial<T>::addsorted(T item)
 requires std::totally_ordered<T>
 {
+    if (this->isempty()) return this->append(item);
+
     size_t idx = 0;
     while (idx < this->size_ && this->list_[idx] < item) idx++;
 
-    this->insert(idx, item);
-    return this->list_[idx];
+    if (idx == this->size_) return this->append(item);
+
+    return this->insert(idx, item);
 }
 
 
