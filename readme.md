@@ -10,17 +10,35 @@
 - Lista Encadeada (linked list)
     - Trata cada item como um "node" (um nó, um elemento filho).
         - Cada node possui outro node como o próximo, a não ser que seja o último.
-        - Cada node possui um node como o anterior, a não ser que seja o primeiro da lista.
     - Acesso sequencial.
-        - Não permite acesso aleatório.
-    - **Ótimo** para inserções e remoções em qualquer parte da lista.
-        - Pelo jeito como funciona.
+        - Não permite acesso aleatório verdadeiro.
+    - **Ótimo** para inserções e remoções em qualquer parte da lista, devido ao modo como funciona.
     - No CPP, é a `std::forward_list`.
 - Lista Duplamente Encadeada
+    - Uma extensão da Lista Encadeada, mas seus nós agora também possuem um ponteiro para o node anterior
+        (a não ser que seja o primeiro da lista.)
+    - Permite maior navegabilidade, já que pode-se navegar de trás pra frente também.
     - No CPP, é a `std::List`.
 - Lista Circular
+    - É como a lista ligada, porém o último nó aponta para o primeiro.
+    - É necessário atenção para evitar problemas como buscas infinitas.
+- Lista Circular Duplamente Encadeada
+    - É como a lista duplamente ligada, porém o úlitmo node aponta para o primeiro.
+    - Mesmas desvantagens da Lista Circular.
 - Fila
 - Pilha
+
+As listas podem ter otimizações como:
+-   manter um atributo `size` (sempre atualizado) para evitar iterações frequentes para determinar o tamanho
+    da lista dinâmicamente;
+-   manter um atributo `tail` contendo o último node da lista, ao invés de determiná-lo dinâmicamente (por
+    meio de iterações);
+-   listas duplamente encadeadas podem utilizar o atributo `size` para procurar elementos em iterações começando
+    do final da lista rumo ao início, caso o índice buscado esteja mais próximo do final da lista.
+
+## Implementações
+- `Listas::ListaSequencial`: uma implementação de uma lista sequencial simples;
+- `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações).
 
 ## Rodando
 
