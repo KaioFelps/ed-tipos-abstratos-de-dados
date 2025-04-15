@@ -73,12 +73,18 @@ T* ListaSequencial<T>::get(size_t index)
 template<typename T>
 T& ListaSequencial<T>::insert(size_t index, T item) noexcept(false)
 {
-    if (index < 0 || index >= this->capacity_)
-    {
-        throw std::invalid_argument("Tentou acessar um índice fora dos limites da lista.");
-    }
-    
     this->mayberesize();
+
+    if (index < 0 || index >= this->size_)
+    {
+        std::string error_message = "Tentou acessar um índice fora dos limites da lista (índice é "
+            + std::to_string(index)
+            + ", tamanho da lista é "
+            + std::to_string(this->size_)
+            + ").";
+
+        throw std::invalid_argument(error_message); 
+    }
 
     for (size_t i = this->size_; i > index && i > 0; i--)
     {
