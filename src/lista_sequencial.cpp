@@ -56,7 +56,7 @@ void ListaSequencial<T>::resize() {
     auto new_data = new T[new_capacity];
 
     for (size_t i = 0; i < this->capacity_; i++)
-        new_data[i] = this->list_.get()[i];
+        new_data[i] = this->list_[i];
     
     this->capacity_ = new_capacity;
     this->list_.reset(new_data);
@@ -144,7 +144,7 @@ std::optional<T> ListaSequencial<T>::remove(size_t index)
 
     for (size_t i = index; i < this->size_ -1; i++)
     {
-        this->list_.get()[i] = this->list_.get()[i+1];
+        this->list_[i] = this->list_[i+1];
     }
 
     this->size_--;
