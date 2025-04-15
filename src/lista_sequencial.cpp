@@ -3,6 +3,9 @@
 #include <concepts>
 #include <exception>
 
+namespace Listas
+{
+
 template<typename T>
 ListaSequencial<T>::ListaSequencial(size_t _capacity)
 {
@@ -50,7 +53,7 @@ void ListaSequencial<T>::resize() {
     auto new_capacity = this->capacity_ + INCREASE_CAPACITY_BY;
     auto new_data = new T[new_capacity];
 
-    for (int i = 0; i < this->capacity_; i++)
+    for (size_t i = 0; i < this->capacity_; i++)
         new_data[i] = this->list_.get()[i];
     
     this->capacity_ = new_capacity;
@@ -58,7 +61,7 @@ void ListaSequencial<T>::resize() {
 }
 
 template<typename T>
-T* ListaSequencial<T>::get(int index)
+T* ListaSequencial<T>::get(size_t index)
 {
     if (index < 0 || index >= this->size_) return nullptr;
 
@@ -66,7 +69,7 @@ T* ListaSequencial<T>::get(int index)
 }
 
 template<typename T>
-T& ListaSequencial<T>::insert(int index, T item) noexcept(false)
+T& ListaSequencial<T>::insert(size_t index, T item) noexcept(false)
 {
     if (index < 0 || index >= this->capacity_)
     {
@@ -75,7 +78,7 @@ T& ListaSequencial<T>::insert(int index, T item) noexcept(false)
     
     this->mayberesize();
 
-    for (int i = this->size_; i > index && i > 0; i--)
+    for (size_t i = this->size_; i > index && i > 0; i--)
     {
         this->list_[i] = this->list_[i-1];
     }
@@ -91,7 +94,7 @@ template<typename T>
 T& ListaSequencial<T>::addsorted(T item)
 requires std::totally_ordered<T>
 {
-    int idx = 0;
+    size_t idx = 0;
     while (idx < this->size_ && this->list_[idx] < item) idx++;
 
     this->insert(idx, item);
@@ -100,16 +103,16 @@ requires std::totally_ordered<T>
 
 
 template<typename T>
-int ListaSequencial<T>::find(T _item)
+size_t ListaSequencial<T>::find(T _item)
 requires std::equality_comparable<T>
 {
-    for (int i = 0; i < this->size_; i++)
+    for (size_t i = 0; i < this->size_; i++)
     {
         auto& item = this->list_[i];
         if (item == _item) return i;
     }
 
-    return -1;
+    return not_found_pos;
 }
 
 template<typename T>
@@ -128,7 +131,7 @@ std::optional<T> ListaSequencial<T>::pop()
 }
 
 template<typename T>
-std::optional<T> ListaSequencial<T>::remove(int index)
+std::optional<T> ListaSequencial<T>::remove(size_t index)
 {
     if (index < 0 || this->size_ <= index)
     {
@@ -137,7 +140,7 @@ std::optional<T> ListaSequencial<T>::remove(int index)
 
     auto removed_item = this->list_[index];
 
-    for (int i = index; i < this->size_ -1; i++)
+    for (size_t i = index; i < this->size_ -1; i++)
     {
         this->list_.get()[i] = this->list_.get()[i+1];
     }
@@ -151,7 +154,7 @@ template<typename T>
 void ListaSequencial<T>::print() const
 {
     std::cout << "[ ";
-    for (int i = 0; i < this->size_; i++)
+    for (size_t i = 0; i < this->size_; i++)
     {
         if (i != this->size_ -1)
         {
@@ -164,3 +167,5 @@ void ListaSequencial<T>::print() const
 }
 
 template class ListaSequencial<int>;
+
+}

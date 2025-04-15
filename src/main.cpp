@@ -5,7 +5,7 @@
 
 int main()
 {
-    auto lista = new ListaSequencial<int>(5);
+    auto lista = new Listas::ListaSequencial<int>(5);
     std::cout << "Tamanho da lista: " << lista->size() << "; Capacidade: " << lista->capacity() << "\n";
     
     lista->append(12);
