@@ -26,8 +26,10 @@ template<typename T>
 T& ListaSequencial<T>::append(T item)
 {
     this->mayberesize();
-    this->list_[this->size_++] = item;
-    return this->list_[this->size_-1];
+    auto index = this->size_++;
+
+    this->list_[index] = item;
+    return this->list_[index];
 }
 
 template<typename T>
@@ -164,17 +166,15 @@ std::optional<T> ListaSequencial<T>::remove(size_t index)
 template<typename T>
 void ListaSequencial<T>::print() const
 {
-    std::cout << "[ ";
+    std::cout << "[";
+
     for (size_t i = 0; i < this->size_; i++)
     {
-        if (i != this->size_ -1)
-        {
-            std::cout << this->list_[i] << ", ";
-        } else {
-            std::cout << this->list_[i];
-        }
+        std::cout << this->list_[i];
+        if (i != this->size_ -1) std::cout << ", ";
     }
-    std::cout << " ]\n";
+
+    std::cout << "]";
 }
 
 template class ListaSequencial<int>;
