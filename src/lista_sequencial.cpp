@@ -39,7 +39,7 @@ template<typename T>
 size_t ListaSequencial<T>::capacity() const { return this->capacity_; }
 
 template<typename T>
-size_t ListaSequencial<T>::space_available() const
+size_t ListaSequencial<T>::available_space() const
 {
     return this->capacity_ - this->size_;
 }
