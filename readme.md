@@ -37,7 +37,18 @@ As listas podem ter otimizações como:
     do final da lista rumo ao início, caso o índice buscado esteja mais próximo do final da lista.
 
 ## Implementações
-- `Listas::ListaSequencial`: uma implementação de uma lista sequencial simples;
+- `Listas::ListaSequencial`: uma implementação de uma lista sequencial simples:
+    - [x] `list_get_available` => `Listas::ListaSequencial::space_available;
+    - [ ] `list_clear` => `Listas::clear`;
+    - [x] `list_remove_last` => `Listas::ListaSequencial::pop`;
+    - [ ] `list_print_reverse` => `Listas::ListaSequencial::print_reverse`;
+    - [x] `list_add` => `Listas::ListaSequencial::append`;
+    - [ ] `list_is_sorted` => `Listas::ListaSequencial::is_sorted`;
+    - [ ] `list_reverse` => `Listas::ListaSequencial::reverse`;
+    - [ ] `list_equal` => `Listas::ListaSequencial::equals`;
+    - [x] `list_from_vector` => `Listas::ListaSequencial::from_array`;
+    - [x] `list_copy` => `Listas::ListaSequencial::clone`;
+    - [ ] `list_concat` => `Listas::ListaSequencial::concat`;
 - `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações).
 
 ## Rodando
