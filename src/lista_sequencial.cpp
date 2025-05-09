@@ -39,6 +39,12 @@ template<typename T>
 size_t ListaSequencial<T>::capacity() const { return this->capacity_; }
 
 template<typename T>
+size_t ListaSequencial<T>::space_available() const
+{
+    return this->capacity_ - this->size_;
+}
+
+template<typename T>
 bool ListaSequencial<T>::isempty() const { return this->size_ == 0; }
 
 template<typename T>
@@ -175,6 +181,54 @@ void ListaSequencial<T>::print() const
     }
 
     std::cout << "]";
+}
+
+template<typename T>
+ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(T* array, size_t size)
+{
+    ListaSequencial<T> list = ListaSequencial(size);
+    for (int i = 0; i < size; i++)
+    {
+        list.append(array[i]);
+    }
+
+    return list;
+}
+
+template<typename T>
+ListaSequencial<T>* ListaSequencial<T>::from_array(T* array, size_t size)
+{
+    ListaSequencial<T>* list = new ListaSequencial(size);
+    for (int i = 0; i < size; i++)
+    {
+        list->append(array[i]);
+    }
+
+    return list;
+}
+
+template<typename T>
+ListaSequencial<T> ListaSequencial<T>::clone_on_stack() const {
+    ListaSequencial<T> list = ListaSequencial(this->capacity_);
+
+    for (int i = 0; i < this->size_; i++)
+    {
+        list.append(this->list_[i]);
+    }
+
+    return list;
+}
+
+template<typename T>
+ListaSequencial<T>* ListaSequencial<T>::clone() const {
+    ListaSequencial<T>* list = new ListaSequencial(this->capacity_);
+
+    for (int i = 0; i < this->size_; i++)
+    {
+        list->append(this->list_[i]);
+    }
+
+    return list;
 }
 
 template class ListaSequencial<int>;
