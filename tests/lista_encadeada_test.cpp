@@ -221,8 +221,6 @@ TEST_CASE("It should be able to insert element sorted by descending order", "[Li
     list.insertsorted(-400);
     list.insertsorted(0);
     
-    list.print();
-
     REQUIRE(*list.get(0) == -400);
     REQUIRE(*list.get(1) == 0);
     REQUIRE(*list.get(2) == 3);
@@ -264,4 +262,32 @@ TEST_CASE("It should be able to make a deep copy of itself on the stack", "[List
     REQUIRE(*list.get(2) == *copy.get(2));
     REQUIRE(*list.get(3) == *copy.get(3));
     REQUIRE(*list.get(4) == *copy.get(4));
+}
+
+TEST_CASE("It should be able to concatenate a list into another", "[ListaEncadeada::concat]")
+{
+    using namespace Listas;
+
+    auto list_a = ListaEncadeada<int>();
+    list_a.insertsorted(5);
+    list_a.insertsorted(3);
+    list_a.insertsorted(424);
+    list_a.insertsorted(-400);
+    list_a.insertsorted(0);
+
+    auto list_b = ListaEncadeada<int>();
+    list_b.pushback(10);
+    list_b.pushback(45);
+
+    size_t list_b_size_before_concat = list_b.size();
+
+    list_b.concat(list_a);
+
+    REQUIRE(10 == *list_b.get(0));
+    REQUIRE(45 == *list_b.get(1));
+
+    for (size_t i = list_b_size_before_concat; i < list_b.size(); i++)
+    {
+        REQUIRE(*list_a.get(i - list_b_size_before_concat) == *list_b.get(i));
+    }
 }

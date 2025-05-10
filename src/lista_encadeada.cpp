@@ -476,6 +476,21 @@ void ListaEncadeada<T>::clone(ListaEncadeada<T>* dest) const
     }
 }
 
+template<typename T>
+requires std::equality_comparable<T>
+void ListaEncadeada<T>::concat(const ListaEncadeada<T>& source)
+{
+    if (source.isempty()) return;
+
+    NóListaEncadeada<T>* source_node = source.head_;
+
+    while(source_node)
+    {
+        this->pushback(source_node->element());
+        source_node = source_node->getnext();
+    }
+}
+
 template class ListaEncadeada<int>;
 template class NóListaEncadeada<int>;
 }
