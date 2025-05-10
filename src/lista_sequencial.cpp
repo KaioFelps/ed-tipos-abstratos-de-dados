@@ -183,11 +183,11 @@ void ListaSequencial<T>::print() const
     std::cout << "]";
 }
 
-template<typename T>
-ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(T* array, size_t size)
+template <typename T>
+ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(const T* array, size_t size)
 {
     ListaSequencial<T> list = ListaSequencial(size);
-    for (int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         list.append(array[i]);
     }
@@ -196,10 +196,34 @@ ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(T* array, size_t size
 }
 
 template<typename T>
-ListaSequencial<T>* ListaSequencial<T>::from_array(T* array, size_t size)
+ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(std::initializer_list<T> array)
 {
-    ListaSequencial<T>* list = new ListaSequencial(size);
-    for (int i = 0; i < size; i++)
+    ListaSequencial<T> list = ListaSequencial(array.size());
+    for (auto& element : array)
+    {
+        list.append(element);
+    }
+
+    return list;
+}
+
+template<typename T>
+std::unique_ptr<ListaSequencial<T>> ListaSequencial<T>::from_array(std::initializer_list<T> array)
+{
+    auto list = std::make_unique<ListaSequencial<T>>(array.size());
+    for (auto& element : array)
+    {
+        list->append(element);
+    }
+
+    return list;
+}
+
+template<typename T>
+std::unique_ptr<ListaSequencial<T>> ListaSequencial<T>::from_array(const T* array, size_t size)
+{
+    auto list = std::make_unique<ListaSequencial<T>>(size);
+    for (size_t i = 0; i < size; i++)
     {
         list->append(array[i]);
     }
@@ -211,7 +235,7 @@ template<typename T>
 ListaSequencial<T> ListaSequencial<T>::clone_on_stack() const {
     ListaSequencial<T> list = ListaSequencial(this->capacity_);
 
-    for (int i = 0; i < this->size_; i++)
+    for (size_t i = 0; i < this->size_; i++)
     {
         list.append(this->list_[i]);
     }
@@ -220,15 +244,59 @@ ListaSequencial<T> ListaSequencial<T>::clone_on_stack() const {
 }
 
 template<typename T>
-ListaSequencial<T>* ListaSequencial<T>::clone() const {
-    ListaSequencial<T>* list = new ListaSequencial(this->capacity_);
+std::unique_ptr<ListaSequencial<T>> ListaSequencial<T>::clone() const {
+    auto list = std::make_unique<ListaSequencial<T>>(this->capacity_);
 
-    for (int i = 0; i < this->size_; i++)
+    for (size_t i = 0; i < this->size_; i++)
     {
         list->append(this->list_[i]);
     }
 
     return list;
+}
+
+template<typename T>
+void ListaSequencial<T>::concat(ListaSequencial<T>& list)
+{
+    for (size_t i = 0; i < list.size(); i++)
+    {
+        T element = T{};
+        std::swap(*list.get(i), element);
+        this->append(element);
+    }
+}
+
+// ===========================
+// UNIMPLEMENTED
+// ===========================
+
+template<typename T>
+bool ListaSequencial<T>::is_sorted() const
+{
+    return true;
+}
+
+template<typename T>
+bool ListaSequencial<T>::equals(const ListaSequencial<T>& list) const
+{
+    return true;
+}
+
+template<typename T>
+void ListaSequencial<T>::reverse()
+{
+
+}
+
+template<typename T>
+void ListaSequencial<T>::clear()
+{
+
+}
+
+template<typename T>
+void ListaSequencial<T>::print_reverse() const
+{
 }
 
 template class ListaSequencial<int>;
