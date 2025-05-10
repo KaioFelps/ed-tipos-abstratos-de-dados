@@ -172,3 +172,13 @@ TEST_CASE("It should check whether list is sorted or not", "[ListaSequencial::is
     REQUIRE(false == Listas::ListaSequencial<int>::from_array_on_stack({3, 1, 4, 5, 6, 7}).is_sorted());
     REQUIRE(true == Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5, 6, 7}).is_sorted());
 }
+
+TEST_CASE("It should be able to compare a list to another", "[ListaSequencial::equals]")
+{
+    auto base_list = Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5});
+
+    REQUIRE(base_list != Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5, 6}));
+    REQUIRE(base_list != Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 6}));
+    REQUIRE(base_list != Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 5, 4}));
+    REQUIRE(base_list == Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5}));
+}

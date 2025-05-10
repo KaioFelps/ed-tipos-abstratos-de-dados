@@ -45,7 +45,7 @@ As listas podem ter otimizações como:
     - [x] `list_add` => `Listas::ListaSequencial::append`;
     - [x] `list_is_sorted` => `Listas::ListaSequencial::is_sorted`;
     - [ ] `list_reverse` => `Listas::ListaSequencial::reverse`;
-    - [ ] `list_equal` => `Listas::ListaSequencial::equals`;
+    - [x] `list_equal` => `Listas::ListaSequencial::equals`;
     - [x] `list_from_vector` => `Listas::ListaSequencial::from_array`;
     - [x] `list_copy` => `Listas::ListaSequencial::clone`;
     - [ ] `list_concat` => `Listas::ListaSequencial::concat`;

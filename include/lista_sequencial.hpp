@@ -56,7 +56,9 @@ class ListaSequencial
         bool isempty() const;
         bool isfull() const;
         bool is_sorted() const;
-        bool equals(const ListaSequencial<T>& list) const;
+        bool equals(const ListaSequencial<T>& list) const requires std::equality_comparable<T>;
+        bool operator==(const ListaSequencial<T>& list) const requires std::equality_comparable<T>;
+        bool operator!=(const ListaSequencial<T>& list) const requires std::equality_comparable<T>;
 
         void reverse();
         void clear();

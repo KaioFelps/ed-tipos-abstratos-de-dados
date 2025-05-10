@@ -312,8 +312,30 @@ bool ListaSequencial<T>::is_sorted() const
 
 template<typename T>
 bool ListaSequencial<T>::equals(const ListaSequencial<T>& list) const
+requires std::equality_comparable<T>
 {
+    if (this->size() != list.size()) return false;
+
+    for (size_t i = 0; i < this->size(); i++)
+    {
+        if (this->list_[i] != list.list_[i]) return false;
+    }
+
     return true;
+}
+
+template<typename T>
+bool ListaSequencial<T>::operator==(const ListaSequencial<T>& list) const
+requires std::equality_comparable<T>
+{
+    return this->equals(list);
+}
+
+template<typename T>
+bool ListaSequencial<T>::operator!=(const ListaSequencial<T>& list) const
+requires std::equality_comparable<T>
+{
+    return !this->equals(list);
 }
 
 template<typename T>
