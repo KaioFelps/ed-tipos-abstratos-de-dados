@@ -319,6 +319,8 @@ void ListaSequencial<T>::reverse()
 template<typename T>
 bool ListaSequencial<T>::is_sorted() const
 {
+    if (this->size() <= 1) return true;
+
     for (size_t i = 0; i < this->size_ -1; i++)
     {
         if (this->list_[i] > this->list_[(i+1)]) return false;
