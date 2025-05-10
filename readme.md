@@ -52,7 +52,7 @@ As listas podem ter otimizações como:
 - `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações):
     - [x] `empty` => `Listas::ListaEncadeada::isempty`;
     - [x] `get` => `Listas::ListaEncadeada::get`;
-    - [ ] `print_last` => `Listas::ListaEncadeada::printlast`;
+    - [x] `print_last` => `Listas::ListaEncadeada::printlast`;
     - [ ] `is_sorted` => `Listas::ListaEncadeada::issorted`;
     - [x] `push_back` => `Listas::ListaEncadeada::pushback`;
     - [ ] `insert_sorted` => `Listas::ListaEncadeada::insertsorted`;

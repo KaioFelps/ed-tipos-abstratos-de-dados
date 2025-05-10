@@ -90,7 +90,7 @@ ListaEncadeada<T>::ListaEncadeada()
 }
 template<typename T>
 requires std::equality_comparable<T>
-NóListaEncadeada<T>* ListaEncadeada<T>::_tail()
+NóListaEncadeada<T>* ListaEncadeada<T>::_tail() const
 {
 
     NóListaEncadeada<T>* node = this->head_;
@@ -204,7 +204,7 @@ size_t ListaEncadeada<T>::getpos(const T& element) const
 
 template<typename T>
 requires std::equality_comparable<T>
-T& ListaEncadeada<T>::tail()
+T& ListaEncadeada<T>::tail() const
 {
     if (this->isempty()) throw std::out_of_range("tried to get tail from empty list.");
     return this->_tail()->element();
@@ -349,6 +349,19 @@ void ListaEncadeada<T>::print() const
     }
 
     std::cout << "]";
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+void ListaEncadeada<T>::printlast() const
+{
+    if (this->isempty())
+    {
+        std::cout << "null";
+        return;
+    }
+
+    std::cout << this->tail();
 }
 
 template class ListaEncadeada<int>;

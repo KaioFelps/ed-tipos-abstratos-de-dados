@@ -142,3 +142,40 @@ TEST_CASE("It should be able to print the content of a list as an JSON array", "
 
     REQUIRE(buffer.str() == "[20, 30, 2, 493, 770]");
 }
+
+TEST_CASE("It should print last item on output", "[ListaEncadeada::printlast]")
+{
+    SECTION("Non-empty list")
+    {
+        auto lista = Listas::ListaEncadeada<int>();
+
+        lista.pushback(20);
+        lista.pushback(30);
+        lista.pushback(2);
+        lista.pushback(400);
+        
+        std::stringstream fake_buffer;
+        auto cout_buffer = std::cout.rdbuf(fake_buffer.rdbuf());
+
+        lista.printlast();
+
+        std::cout.rdbuf(cout_buffer);
+
+        REQUIRE("400" == fake_buffer.str());
+    }
+
+    SECTION("Empty list")
+    {
+        auto lista = Listas::ListaEncadeada<int>();
+
+        std::stringstream fake_buffer;
+        auto cout_buffer = std::cout.rdbuf(fake_buffer.rdbuf());
+
+        lista.printlast();
+
+        std::cout.rdbuf(cout_buffer);
+
+        REQUIRE("null" == fake_buffer.str());
+    }
+}
+
