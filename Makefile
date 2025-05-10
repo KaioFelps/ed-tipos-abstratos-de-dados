@@ -39,6 +39,9 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 test: build $(TEST_BINS) | $(TESTS_BUILD_DIR)
+	@make run_test
+
+run_test:
 	@echo "Rodando os testes do diretório /testes"
 	@for test in $(EXECUTABLE_TESTS_BINS); do\
 		echo "Rodando o teste $$test";\
