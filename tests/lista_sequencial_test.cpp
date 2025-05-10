@@ -166,3 +166,9 @@ TEST_CASE("It should reset a list if required to", "[ListaSequencial::clear]")
     REQUIRE(original->capacity() == DEFAULT_CAPACITY);
     REQUIRE(!original->pop().has_value());
 }
+
+TEST_CASE("It should check whether list is sorted or not", "[ListaSequencial::is_sorted]")
+{
+    REQUIRE(false == Listas::ListaSequencial<int>::from_array_on_stack({3, 1, 4, 5, 6, 7}).is_sorted());
+    REQUIRE(true == Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5, 6, 7}).is_sorted());
+}

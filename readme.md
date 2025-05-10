@@ -43,7 +43,7 @@ As listas podem ter otimizações como:
     - [x] `list_remove_last` => `Listas::ListaSequencial::pop`;
     - [x] `list_print_reverse` => `Listas::ListaSequencial::print_reverse`;
     - [x] `list_add` => `Listas::ListaSequencial::append`;
-    - [ ] `list_is_sorted` => `Listas::ListaSequencial::is_sorted`;
+    - [x] `list_is_sorted` => `Listas::ListaSequencial::is_sorted`;
     - [ ] `list_reverse` => `Listas::ListaSequencial::reverse`;
     - [ ] `list_equal` => `Listas::ListaSequencial::equals`;
     - [x] `list_from_vector` => `Listas::ListaSequencial::from_array`;

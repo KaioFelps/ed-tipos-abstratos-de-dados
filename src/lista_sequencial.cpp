@@ -302,6 +302,11 @@ void ListaSequencial<T>::clear()
 template<typename T>
 bool ListaSequencial<T>::is_sorted() const
 {
+    for (size_t i = 0; i < this->size_ -1; i++)
+    {
+        if (this->list_[i] > this->list_[(i+1)]) return false;
+    }
+
     return true;
 }
 
