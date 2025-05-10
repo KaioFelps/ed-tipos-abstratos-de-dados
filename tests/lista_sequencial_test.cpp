@@ -2,6 +2,8 @@
 #include "lista_sequencial.hpp"
 #include <iostream>
 
+std::mutex cout_mutex;
+
 TEST_CASE("It should possible to append items to the list", "[ListaSequencial::append]")
 {
     auto lista = Listas::ListaSequencial<int>(5);
@@ -85,6 +87,9 @@ TEST_CASE("It should print list as a JSON array", "[ListaSequencial::print]")
     lista.addsorted(294);
     lista.addsorted(128);
 
+    std::lock_guard<std::mutex> lock(cout_mutex);
+
+    std::cout << std::endl;
     std::stringstream buffer;
     auto cout_buffer = std::cout.rdbuf(buffer.rdbuf());
 
@@ -92,6 +97,24 @@ TEST_CASE("It should print list as a JSON array", "[ListaSequencial::print]")
     REQUIRE(buffer.str() == "[-255, 0, 1, 10, 20, 49, 128, 294]");
 
     std::cout.rdbuf(cout_buffer);
+}
+
+TEST_CASE("It should print list as a JSON array backwards", "[ListaSequencial::print]")
+{
+    auto lista = Listas::ListaSequencial<int>::from_array({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+
+    std::lock_guard<std::mutex> lock(cout_mutex);
+
+    std::cout << std::endl;
+
+    auto fake_buffer = std::stringstream();
+    auto std_output_buffer = std::cout.rdbuf(fake_buffer.rdbuf());
+
+    lista->print_reverse();
+
+    std::cout.rdbuf(std_output_buffer);
+
+    REQUIRE("[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]" == fake_buffer.str());
 }
 
 TEST_CASE("It should be able to instantiate a sequential list from an C array", "[ListaSequencial::from_array, ListaSequencial::from_array_on_stack]")

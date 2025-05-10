@@ -183,6 +183,27 @@ void ListaSequencial<T>::print() const
     std::cout << "]";
 }
 
+template<typename T>
+void ListaSequencial<T>::print_reverse() const
+{
+    std::cout << "[";
+
+    // using a for-loop with descending `i` would trigger infinite loop as comparison for size_t >= 0 is not valid
+    // 'cause compiler expects `size_t` to be unsigned. This triggers undefined behavior, since when getting > 0 by for-loop `i--`
+    // it is sent to unsigned long max value.
+    size_t i = this->size_ - 1;
+    while(true)
+    {
+        std::cout << this->list_[i];
+        if (i > 0) std::cout << ", ";
+
+        if (i == 0) break;
+        i--;
+    }
+
+    std::cout << "]";
+}
+
 template <typename T>
 ListaSequencial<T> ListaSequencial<T>::from_array_on_stack(const T* array, size_t size)
 {
@@ -266,6 +287,14 @@ void ListaSequencial<T>::concat(ListaSequencial<T>& list)
     }
 }
 
+template<typename T>
+void ListaSequencial<T>::clear()
+{
+    this->size_ = 0;
+    this->capacity_ = DEFAULT_CAPACITY;
+    this->list_.reset(new T[this->capacity_]);
+}
+
 // ===========================
 // UNIMPLEMENTED
 // ===========================
@@ -286,19 +315,6 @@ template<typename T>
 void ListaSequencial<T>::reverse()
 {
 
-}
-
-template<typename T>
-void ListaSequencial<T>::clear()
-{
-    this->size_ = 0;
-    this->capacity_ = DEFAULT_CAPACITY;
-    this->list_.reset(new T[this->capacity_]);
-}
-
-template<typename T>
-void ListaSequencial<T>::print_reverse() const
-{
 }
 
 template class ListaSequencial<int>;
