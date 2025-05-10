@@ -23,9 +23,14 @@ class ListaSequencial
     public:
         ListaSequencial();
         ListaSequencial(size_t capacity);
-        ListaSequencial<T>* from_array(T* array, size_t size);
-        ListaSequencial<T> from_array_on_stack(T* array, size_t size);
-        ListaSequencial<T>* clone() const;
+
+        static std::unique_ptr<ListaSequencial<T>> from_array(const T* array, size_t size);
+        static std::unique_ptr<ListaSequencial<T>> from_array(std::initializer_list<T> array);
+
+        static ListaSequencial<T> from_array_on_stack(const T* array, size_t size);
+        static ListaSequencial<T> from_array_on_stack(std::initializer_list<T> array);
+
+        std::unique_ptr<ListaSequencial<T>> clone() const;
         ListaSequencial<T> clone_on_stack() const;
 
         T* get(size_t index);
@@ -33,6 +38,10 @@ class ListaSequencial
         T& append(T item);
         T& insert(size_t index, T item) noexcept(false);
         T& addsorted(T item) requires std::totally_ordered<T>;
+        /// @brief Consumes every element from another instance of `ListaSequencial<T>`
+        /// on moving it to this current instance, leaving an empty instance
+        /// of `T` for each element previously existing in it.
+        /// @param list 
         void concat(ListaSequencial<T>& list);
         
         size_t find(T item) requires std::equality_comparable<T>;
@@ -47,7 +56,7 @@ class ListaSequencial
         bool isempty() const;
         bool isfull() const;
         bool is_sorted() const;
-        bool equals(ListaSequencial<T>& list) const;
+        bool equals(const ListaSequencial<T>& list) const;
 
         void reverse();
         void clear();
