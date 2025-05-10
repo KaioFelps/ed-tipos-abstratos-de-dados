@@ -491,6 +491,30 @@ void ListaEncadeada<T>::concat(const ListaEncadeada<T>& source)
     }
 }
 
+template<typename T>
+requires std::equality_comparable<T>
+std::unique_ptr<ListaEncadeada<T>> ListaEncadeada<T>::merge(const ListaEncadeada<T>& branch) const
+{
+    std::unique_ptr<ListaEncadeada<T>> lists_union = std::make_unique<ListaEncadeada<T>>();
+
+    lists_union->concat(*this);
+    lists_union->concat(branch);
+    
+    return lists_union;
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+ListaEncadeada<T> ListaEncadeada<T>::stackmerge(const ListaEncadeada<T>& branch) const
+{
+    ListaEncadeada<T> lists_union = ListaEncadeada<T>();
+
+    lists_union.concat(*this);
+    lists_union.concat(branch);
+    
+    return lists_union;
+}
+
 template class ListaEncadeada<int>;
 template class NóListaEncadeada<int>;
 }

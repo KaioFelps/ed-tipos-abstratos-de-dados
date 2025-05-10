@@ -136,7 +136,13 @@ class ListaEncadeada
         /// @brief Mescla uma segunda lista com a atual em uma nova instância de lista
         /// encadeada de `T`.
         /// @param branch 
-        void merge(const ListaEncadeada<T>& branch) const;
+        /// @return Uma nova instância contendo a união desta e da `branch`
+        std::unique_ptr<ListaEncadeada<T>> merge(const ListaEncadeada<T>& branch) const;
+
+        /// @brief O mesmo que `merge`, mas retorna a instância na stack ao invés da heap.
+        /// @param branch 
+        /// @return Uma nova instância contendo a união desta e da `branch`
+        ListaEncadeada<T> stackmerge(const ListaEncadeada<T>& branch) const;
 };
 
 }

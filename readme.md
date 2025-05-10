@@ -58,7 +58,7 @@ As listas podem ter otimizações como:
     - [x] `insert_sorted` => `Listas::ListaEncadeada::insertsorted`;
     - [x] `deep_copy` => `Listas::ListaEncadeada::deepcopy` & `Listas::ListaEncadeada::stackdeepcopy`;
     - [x] `concat` => `Listas::ListaEncadeada::concat`;
-    - [ ] `merge` => `Listas::ListaEncadeada::merge`.
+    - [x] `merge` => `Listas::ListaEncadeada::merge`.
 
 ## Rodando
 

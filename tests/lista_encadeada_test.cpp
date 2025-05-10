@@ -291,3 +291,66 @@ TEST_CASE("It should be able to concatenate a list into another", "[ListaEncadea
         REQUIRE(*list_a.get(i - list_b_size_before_concat) == *list_b.get(i));
     }
 }
+
+TEST_CASE("It should be able to merge two lists into a new one stored in the heap", "[ListaEncadeada::merge]")
+{
+    using namespace Listas;
+
+    auto list_a = ListaEncadeada<int>();
+    list_a.insertsorted(5);
+    list_a.insertsorted(3);
+    list_a.insertsorted(424);
+    list_a.insertsorted(-400);
+    list_a.insertsorted(0);
+
+    auto list_b = ListaEncadeada<int>();
+    list_b.pushback(10);
+    list_b.pushback(45);
+
+    auto merge_on_heap = list_a.merge(list_b);
+
+    REQUIRE(list_a.size() + list_b.size() == merge_on_heap->size());
+
+    for (size_t i = 0; i < merge_on_heap->size(); i++)
+    {
+        if (i < list_a.size())
+        {
+            REQUIRE(*list_a.get(i) == *merge_on_heap->get(i));
+            continue;
+        }
+
+        REQUIRE(*list_b.get(i - list_a.size()) == *merge_on_heap->get(i));
+    }
+}
+
+TEST_CASE("It should be able to merge two lists into a new one stored in the stack", "[ListaEncadeada::stackmerge]")
+{
+    using namespace Listas;
+
+    auto list_a = ListaEncadeada<int>();
+    list_a.insertsorted(5);
+    list_a.insertsorted(3);
+    list_a.insertsorted(424);
+    list_a.insertsorted(-400);
+    list_a.insertsorted(0);
+
+    auto list_b = ListaEncadeada<int>();
+    list_b.pushback(10);
+    list_b.pushback(45);
+
+    auto merge_on_stack = list_a.stackmerge(list_b);
+
+    REQUIRE(list_a.size() + list_b.size() == merge_on_stack.size());
+
+    merge_on_stack.print();
+    for (size_t i = 0; i < merge_on_stack.size(); i++)
+    {
+        if (i < list_a.size())
+        {
+            REQUIRE(*list_a.get(i) == *merge_on_stack.get(i));
+            continue;
+        }
+
+        REQUIRE(*list_b.get(i - list_a.size()) == *merge_on_stack.get(i));
+    }
+}
