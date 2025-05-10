@@ -179,3 +179,53 @@ TEST_CASE("It should print last item on output", "[ListaEncadeada::printlast]")
     }
 }
 
+TEST_CASE("It should tell whether a list is not sorted", "[ListaEncadeada::issorted]")
+{
+    using namespace Listas;
+    auto sorted_list = ListaEncadeada<int>();
+    sorted_list.pushback(1);
+    sorted_list.pushback(3);
+    sorted_list.pushback(2);
+
+    REQUIRE(!sorted_list.issorted());
+}
+
+TEST_CASE("It should tell whether a list is sorted", "[ListaEncadeada::issorted]")
+{
+    using namespace Listas;
+    auto sorted_list = ListaEncadeada<int>();
+    sorted_list.pushback(1);
+    sorted_list.pushback(2);
+    sorted_list.pushback(3);
+
+    REQUIRE(sorted_list.issorted());
+}
+
+TEST_CASE("It should tell that a list is sorted if it has not enough elements for not to be sorted", "[ListaEncadeada::issorted]")
+{
+    using namespace Listas;
+    auto sorted_list = ListaEncadeada<int>();
+
+    REQUIRE(sorted_list.issorted());
+
+    sorted_list.pushback(3);
+    REQUIRE(sorted_list.issorted());
+}
+
+TEST_CASE("It should be able to insert element sorted by descending order", "[ListaEncadeada::insertsorted]")
+{
+    auto list = Listas::ListaEncadeada<int>();
+    list.insertsorted(5);
+    list.insertsorted(3);
+    list.insertsorted(424);
+    list.insertsorted(-400);
+    list.insertsorted(0);
+    
+    list.print();
+
+    REQUIRE(*list.get(0) == -400);
+    REQUIRE(*list.get(1) == 0);
+    REQUIRE(*list.get(2) == 3);
+    REQUIRE(*list.get(3) == 5);
+    REQUIRE(*list.get(4) == 424);
+}

@@ -66,7 +66,7 @@ class ListaEncadeada
         /// for maior que ele.
         /// @param element 
         /// @return Uma referência do elemento recém adicionado.
-        T& insertsorted(T element);
+        T& insertsorted(T element) requires std::totally_ordered<T>;
 
         /// @brief Obtém o último item da lista.
         /// @return Uma referência para o último item da lista.
@@ -111,7 +111,7 @@ class ListaEncadeada
 
         /// @brief Verifica se a lista está ordenada.
         /// @return `true` se e somente se todos os elementos estiverem em ordem crescente. `false` caso contrário.
-        bool issorted() const;
+        bool issorted() const requires std::totally_ordered<T>;
 
         /// @brief Imprime todos os elementos da lista em formato JSON.
         void print() const;

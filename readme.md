@@ -53,9 +53,9 @@ As listas podem ter otimizações como:
     - [x] `empty` => `Listas::ListaEncadeada::isempty`;
     - [x] `get` => `Listas::ListaEncadeada::get`;
     - [x] `print_last` => `Listas::ListaEncadeada::printlast`;
-    - [ ] `is_sorted` => `Listas::ListaEncadeada::issorted`;
+    - [x] `is_sorted` => `Listas::ListaEncadeada::issorted`;
     - [x] `push_back` => `Listas::ListaEncadeada::pushback`;
-    - [ ] `insert_sorted` => `Listas::ListaEncadeada::insertsorted`;
+    - [x] `insert_sorted` => `Listas::ListaEncadeada::insertsorted`;
     - [ ] `deep_copy` => `Listas::ListaEncadeada::deepcopy`;
     - [ ] `concat` => `Listas::ListaEncadeada::concat`;
     - [ ] `merge` => `Listas::ListaEncadeada::merge`.

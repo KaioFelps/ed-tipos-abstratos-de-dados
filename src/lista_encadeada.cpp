@@ -187,6 +187,54 @@ T& ListaEncadeada<T>::insert(T element, size_t offset)
 
 template<typename T>
 requires std::equality_comparable<T>
+T& ListaEncadeada<T>::insertsorted(T element)
+requires std::totally_ordered<T>
+{
+    if (this->isempty())
+    {
+        return this->pushback(element);
+    }
+
+    NóListaEncadeada<T>* node = this->head_;
+
+    if (!node->hasnext())
+    {
+        if (node->element() > element)
+        {
+            return this->pushfront(element);
+        }
+
+        return this->pushback(element);
+    }
+
+    while(node)
+    {
+        if (node->element() > element) break;
+        node = node->getnext();
+    }
+
+    // there aint any element bigger than the incoming one, what makes it the biggest
+    // then we can just append it
+    if (!node) return this->pushback(element);
+    // if its even smaller than the head, then makes it the new head
+    if (node == this->head_) return this->pushfront(element);
+
+    NóListaEncadeada<T>* element_node = new NóListaEncadeada<T>(element);
+
+    if (node->getprevious())
+    {
+        element_node->setprevious(node->getprevious());
+        node->getprevious()->setnext(element_node);
+    }
+
+    element_node->setnext(node);
+    node->setprevious(element_node);
+
+    return element_node->element();
+}
+
+template<typename T>
+requires std::equality_comparable<T>
 size_t ListaEncadeada<T>::getpos(const T& element) const
 {
     NóListaEncadeada<T>* node = this->head_;
@@ -362,6 +410,24 @@ void ListaEncadeada<T>::printlast() const
     }
 
     std::cout << this->tail();
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+bool ListaEncadeada<T>::issorted() const
+requires std::totally_ordered<T>
+{
+    if (this->size() <= 1) return true;
+
+    NóListaEncadeada<T>* node = this->head_;
+
+    while (node && node->hasnext())
+    {
+        if (node->element() > node->getnext()->element()) return false;
+        node = node->getnext();
+    }
+
+    return true;
 }
 
 template class ListaEncadeada<int>;
