@@ -291,7 +291,9 @@ void ListaSequencial<T>::reverse()
 template<typename T>
 void ListaSequencial<T>::clear()
 {
-
+    this->size_ = 0;
+    this->capacity_ = DEFAULT_CAPACITY;
+    this->list_.reset(new T[this->capacity_]);
 }
 
 template<typename T>

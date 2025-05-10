@@ -128,3 +128,18 @@ TEST_CASE("It should be able to clone a sequential list", "[ListaSequencial::clo
         REQUIRE(*original->get(i) == *clone_on_stack.get(i));
     }
 }
+
+TEST_CASE("It should reset a list if required to", "[ListaSequencial::clear]")
+{
+    auto original = Listas::ListaSequencial<int>::from_array({ 10, 20, 1, 0, 49, -255, 294, 129 });
+
+    REQUIRE(original->size() == 8);
+    REQUIRE(original->capacity() == 8);
+
+    original->clear();
+
+    REQUIRE(original->size() == 0);
+    REQUIRE(original->get(0) == nullptr);
+    REQUIRE(original->capacity() == DEFAULT_CAPACITY);
+    REQUIRE(!original->pop().has_value());
+}

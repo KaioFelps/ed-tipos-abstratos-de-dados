@@ -39,7 +39,7 @@ As listas podem ter otimizações como:
 ## Implementações
 - `Listas::ListaSequencial`: uma implementação de uma lista sequencial simples:
     - [x] `list_get_available` => `Listas::ListaSequencial::space_available;
-    - [ ] `list_clear` => `Listas::clear`;
+    - [x] `list_clear` => `Listas::clear`;
     - [x] `list_remove_last` => `Listas::ListaSequencial::pop`;
     - [ ] `list_print_reverse` => `Listas::ListaSequencial::print_reverse`;
     - [x] `list_add` => `Listas::ListaSequencial::append`;
