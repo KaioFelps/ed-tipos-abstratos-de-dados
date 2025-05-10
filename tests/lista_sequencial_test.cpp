@@ -93,3 +93,38 @@ TEST_CASE("It should print list as a JSON array", "[ListaSequencial::print]")
 
     std::cout.rdbuf(cout_buffer);
 }
+
+TEST_CASE("It should be able to instantiate a sequential list from an C array", "[ListaSequencial::from_array, ListaSequencial::from_array_on_stack]")
+{
+    using Listas::ListaSequencial;
+    int array[] = { 10, 20, 1, 0, 49, -255, 294, 129 };
+
+    auto stack_list = ListaSequencial<int>::from_array_on_stack(array, 8);
+    auto stack_list_directly_instantiated = Listas::ListaSequencial<int>::from_array_on_stack({ 10, 20, 1, 0, 49, -255, 294, 129 });
+
+    auto heap_list = Listas::ListaSequencial<int>::from_array(array, 8);
+    auto heap_list_directly_instantiated = Listas::ListaSequencial<int>::from_array({ 10, 20, 1, 0, 49, -255, 294, 129 });
+
+    for (size_t i = 0; i < 8; i++)
+    {
+        REQUIRE(array[i] == *stack_list.get(i));
+        REQUIRE(array[i] == *stack_list_directly_instantiated.get(i));
+
+        REQUIRE(array[i] == *heap_list->get(i));
+        REQUIRE(array[i] == *heap_list_directly_instantiated->get(i));
+    }
+}
+
+TEST_CASE("It should be able to clone a sequential list", "[ListaSequencial::clone, ListaSequencial::clone_on_stack]")
+{
+    auto original = Listas::ListaSequencial<int>::from_array({ 10, 20, 1, 0, 49, -255, 294, 129 });
+
+    auto clone = original->clone();
+    auto clone_on_stack = original->clone_on_stack();
+
+    for (size_t i = 0; i < original->size(); i++)
+    {
+        REQUIRE(*original->get(i) == *clone->get(i));
+        REQUIRE(*original->get(i) == *clone_on_stack.get(i));
+    }
+}
