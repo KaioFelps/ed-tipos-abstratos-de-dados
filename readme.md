@@ -44,11 +44,11 @@ As listas podem ter otimizações como:
     - [x] `list_print_reverse` => `Listas::ListaSequencial::print_reverse`;
     - [x] `list_add` => `Listas::ListaSequencial::append`;
     - [x] `list_is_sorted` => `Listas::ListaSequencial::is_sorted`;
-    - [ ] `list_reverse` => `Listas::ListaSequencial::reverse`;
+    - [x] `list_reverse` => `Listas::ListaSequencial::reverse`;
     - [x] `list_equal` => `Listas::ListaSequencial::equals`;
     - [x] `list_from_vector` => `Listas::ListaSequencial::from_array`;
     - [x] `list_copy` => `Listas::ListaSequencial::clone`;
-    - [ ] `list_concat` => `Listas::ListaSequencial::concat`;
+    - [x] `list_concat` => `Listas::ListaSequencial::concat`;
 - `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações).
 
 ## Rodando

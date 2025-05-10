@@ -169,8 +169,8 @@ TEST_CASE("It should reset a list if required to", "[ListaSequencial::clear]")
 
 TEST_CASE("It should check whether list is sorted or not", "[ListaSequencial::is_sorted]")
 {
-    REQUIRE(false == Listas::ListaSequencial<int>::from_array_on_stack({3, 1, 4, 5, 6, 7}).is_sorted());
-    REQUIRE(true == Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5, 6, 7}).is_sorted());
+    REQUIRE(!Listas::ListaSequencial<int>::from_array_on_stack({3, 1, 4, 5, 6, 7}).is_sorted());
+    REQUIRE(Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5, 6, 7}).is_sorted());
 }
 
 TEST_CASE("It should be able to compare a list to another", "[ListaSequencial::equals]")
@@ -181,4 +181,15 @@ TEST_CASE("It should be able to compare a list to another", "[ListaSequencial::e
     REQUIRE(base_list != Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 6}));
     REQUIRE(base_list != Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 5, 4}));
     REQUIRE(base_list == Listas::ListaSequencial<int>::from_array_on_stack({1, 2, 3, 4, 5}));
+}
+
+TEST_CASE("It should be able to reverse a sequential list", "[ListaSequencial::reverse]")
+{
+    auto original = Listas::ListaSequencial<int>::from_array({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    original->reverse();
+    REQUIRE(Listas::ListaSequencial<int>::from_array({10, 9, 8, 7, 6, 5, 4, 3, 2, 1})->equals(original));
+
+    original.reset(Listas::ListaSequencial<int>::from_array({4, 5, 6, 8, 9}).release());
+    original->reverse();
+    REQUIRE(Listas::ListaSequencial<int>::from_array({9, 8, 6, 5, 4})->equals(original));
 }

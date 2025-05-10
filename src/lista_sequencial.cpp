@@ -295,6 +295,23 @@ void ListaSequencial<T>::clear()
     this->list_.reset(new T[this->capacity_]);
 }
 
+template<typename T>
+void ListaSequencial<T>::reverse()
+{
+    size_t begin = 0;
+    size_t end = this->size_ - 1;
+
+    while(begin <= end)
+    {
+        auto swap = this->list_[begin];
+        this->list_[begin] = this->list_[end];
+        this->list_[end] = swap;
+
+        begin++;
+        end--;
+    }
+}
+
 // ===========================
 // UNIMPLEMENTED
 // ===========================
