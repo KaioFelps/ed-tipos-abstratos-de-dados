@@ -39,7 +39,7 @@ class ListaEncadeada
 {
     private:
         NóListaEncadeada<T>* head_;
-        NóListaEncadeada<T>* _tail();
+        NóListaEncadeada<T>* _tail() const;
 
     public:
         ListaEncadeada();
@@ -62,10 +62,16 @@ class ListaEncadeada
         /// @throw `std::out_of_range` se `offset` >= tamanho da lista.
         T& insert(T element, size_t offset);
 
+        /// @brief Adiciona o `element` logo antes do primeiro elemento que
+        /// for maior que ele.
+        /// @param element 
+        /// @return Uma referência do elemento recém adicionado.
+        T& insertsorted(T element);
+
         /// @brief Obtém o último item da lista.
         /// @return Uma referência para o último item da lista.
         /// @throw `std::out_of_range` se a lista estiver vazia.
-        T& tail();
+        T& tail() const;
 
         /// @brief Obtém o primeiro item da lista.
         /// @return Uma referência para o primeiro item da lista.
@@ -103,7 +109,33 @@ class ListaEncadeada
         /// @return `true` se e somente se houver ao menos 1 elemento na lista. `false` caso contrário.
         bool isempty() const;
 
+        /// @brief Verifica se a lista está ordenada.
+        /// @return `true` se e somente se todos os elementos estiverem em ordem crescente. `false` caso contrário.
+        bool issorted() const;
+
+        /// @brief Imprime todos os elementos da lista em formato JSON.
         void print() const;
+
+        /// @brief Imprime o último elemento na saída padrão.
+        void printlast() const;
+
+        /// @brief Cria uma nova lista com cópias de todos os elementos desta instância.
+        /// @return Um novo ponteiro único de lista encadeada do mesmo tipo que a atual.
+        std::unique_ptr<ListaEncadeada<T>> deep_copy() const;      
+
+        /// @brief O mesmo que `deep_copy`, mas retornando o elemento na stack ao invés
+        /// de alocá-lo na heap.
+        /// @return Uma instância de lista encadeada do mesmo tipo da atual alocado na stack.
+        ListaEncadeada<T> deep_copy_on_stack() const;
+
+        /// @brief Copia todos os elementos de `source` ao final da lista atual.
+        /// @param source 
+        void concat(const ListaEncadeada<T>& source);
+
+        /// @brief Mescla uma segunda lista com a atual em uma nova instância de lista
+        /// encadeada de `T`.
+        /// @param branch 
+        void merge(const ListaEncadeada<T>& branch) const;
 };
 
 }

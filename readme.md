@@ -49,11 +49,20 @@ As listas podem ter otimizações como:
     - [x] `list_from_vector` => `Listas::ListaSequencial::from_array`;
     - [x] `list_copy` => `Listas::ListaSequencial::clone`;
     - [x] `list_concat` => `Listas::ListaSequencial::concat`;
-- `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações).
+- `Listas::ListaEncadeada`: uma implementação de uma lista duplamente encadeada (sem otimizações):
+    - [x] `empty` => `Listas::ListaEncadeada::isempty`;
+    - [x] `get` => `Listas::ListaEncadeada::get`;
+    - [ ] `print_last` => `Listas::ListaEncadeada::printlast`;
+    - [ ] `is_sorted` => `Listas::ListaEncadeada::issorted`;
+    - [x] `push_back` => `Listas::ListaEncadeada::pushback`;
+    - [ ] `insert_sorted` => `Listas::ListaEncadeada::insertsorted`;
+    - [ ] `deep_copy` => `Listas::ListaEncadeada::deepcopy`;
+    - [ ] `concat` => `Listas::ListaEncadeada::concat`;
+    - [ ] `merge` => `Listas::ListaEncadeada::merge`.
 
 ## Rodando
 
-Para rodar, será necessário ter instalado [vcpkg]() e também ter disponível o comando `make`.
+Para rodar, será necessário ter instalado [vcpkg](https://github.com/microsoft/vcpkg) e também ter disponível o comando `make`.
 Rode `vcpkg install` para baixar as dependências necessárias.
 
 ### Buildando
