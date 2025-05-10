@@ -80,7 +80,9 @@ NóListaEncadeada<T>* NóListaEncadeada<T>::getprevious()
     return this->previous_;
 }
 
-// ListaEncadeada ===========================================
+//==========================================
+// ListaEncadeada
+//==========================================
         
 template<typename T>
 requires std::equality_comparable<T>
@@ -88,6 +90,7 @@ ListaEncadeada<T>::ListaEncadeada()
 {
     this->head_ = nullptr;
 }
+
 template<typename T>
 requires std::equality_comparable<T>
 NóListaEncadeada<T>* ListaEncadeada<T>::_tail() const
@@ -428,6 +431,49 @@ requires std::totally_ordered<T>
     }
 
     return true;
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+std::unique_ptr<ListaEncadeada<T>> ListaEncadeada<T>::deepcopy() const
+{
+    std::unique_ptr<ListaEncadeada<T>> new_list = std::make_unique<ListaEncadeada<T>>();
+    this->clone(new_list.get());
+    return new_list;
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+ListaEncadeada<T> ListaEncadeada<T>::stackdeepcopy() const
+{
+    ListaEncadeada<T> new_list = ListaEncadeada<T>();
+    this->clone(&new_list);
+    return new_list;
+}
+
+template<typename T>
+requires std::equality_comparable<T>
+void ListaEncadeada<T>::clone(ListaEncadeada<T>* dest) const
+{
+    if (this->isempty()) return;
+
+    NóListaEncadeada<T>* node = this->head_;
+    NóListaEncadeada<T>* node_clone = new NóListaEncadeada(node->element());
+
+    dest->head_ = node_clone;
+
+    while (node)
+    {
+        if (node->hasnext())
+        {
+            auto* node_next_clone = new NóListaEncadeada(node->getnext()->element());
+            node_next_clone->setprevious(node_clone);
+            node_clone->setnext(node_next_clone);
+        }
+
+        node = node->getnext();
+        node_clone = node_clone->getnext();
+    }
 }
 
 template class ListaEncadeada<int>;

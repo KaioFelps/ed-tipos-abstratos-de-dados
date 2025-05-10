@@ -229,3 +229,39 @@ TEST_CASE("It should be able to insert element sorted by descending order", "[Li
     REQUIRE(*list.get(3) == 5);
     REQUIRE(*list.get(4) == 424);
 }
+
+TEST_CASE("It should be able to make a deep copy of itself on the heap", "[ListaEncadeada::deepcopy]")
+{
+    auto list = Listas::ListaEncadeada<int>();
+    list.insertsorted(5);
+    list.insertsorted(3);
+    list.insertsorted(424);
+    list.insertsorted(-400);
+    list.insertsorted(0);
+
+    auto copy = list.deepcopy();
+
+    REQUIRE(*list.get(0) == *copy->get(0));
+    REQUIRE(*list.get(1) == *copy->get(1));
+    REQUIRE(*list.get(2) == *copy->get(2));
+    REQUIRE(*list.get(3) == *copy->get(3));
+    REQUIRE(*list.get(4) == *copy->get(4));
+}
+
+TEST_CASE("It should be able to make a deep copy of itself on the stack", "[ListaEncadeada:stackdeepcopy]")
+{
+    auto list = Listas::ListaEncadeada<int>();
+    list.insertsorted(5);
+    list.insertsorted(3);
+    list.insertsorted(424);
+    list.insertsorted(-400);
+    list.insertsorted(0);
+
+    auto copy = list.stackdeepcopy();
+
+    REQUIRE(*list.get(0) == *copy.get(0));
+    REQUIRE(*list.get(1) == *copy.get(1));
+    REQUIRE(*list.get(2) == *copy.get(2));
+    REQUIRE(*list.get(3) == *copy.get(3));
+    REQUIRE(*list.get(4) == *copy.get(4));
+}
