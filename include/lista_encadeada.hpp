@@ -40,6 +40,7 @@ class ListaEncadeada
     private:
         NóListaEncadeada<T>* head_;
         NóListaEncadeada<T>* _tail() const;
+        void clone(ListaEncadeada<T>* dest) const;
 
     public:
         ListaEncadeada();
@@ -121,12 +122,12 @@ class ListaEncadeada
 
         /// @brief Cria uma nova lista com cópias de todos os elementos desta instância.
         /// @return Um novo ponteiro único de lista encadeada do mesmo tipo que a atual.
-        std::unique_ptr<ListaEncadeada<T>> deep_copy() const;      
+        std::unique_ptr<ListaEncadeada<T>> deepcopy() const;      
 
         /// @brief O mesmo que `deep_copy`, mas retornando o elemento na stack ao invés
         /// de alocá-lo na heap.
         /// @return Uma instância de lista encadeada do mesmo tipo da atual alocado na stack.
-        ListaEncadeada<T> deep_copy_on_stack() const;
+        ListaEncadeada<T> stackdeepcopy() const;
 
         /// @brief Copia todos os elementos de `source` ao final da lista atual.
         /// @param source 
